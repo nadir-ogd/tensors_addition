@@ -2,7 +2,7 @@
 
 int main (int argc, char ** argv)
 {
-    int dimensions[3] = { 2, 2, 2 };
+    int dimensions[3] = { 2, 2 , 2 };
 	
 	struct mem_abs * ma0;
 	struct tensor * t0;
@@ -68,11 +68,18 @@ int main (int argc, char ** argv)
 	printf("Destroying tensor\n");
 	tensor_destroy(t1);
 	printf("Tensor destroyed\n");
-	
+
 	printf("Destroying memory abstraction\n");
 	mem_abs_destroy(ma1);
 	printf("Memory abstraction destroyed\n");
 
+	// printf("Destroying tensor\n");
+	// tensor_destroy(t0);
+	// printf("Tensor destroyed\n");
+
+	// printf("Destroying memory abstraction\n");
+	// mem_abs_destroy(ma0);
+	// printf("Memory abstraction destroyed\n");
     /**
      * Ex: How to access a particular point in a tensor
 	 *  printf("Accessing point : ( 3, 2, 1 )\n");

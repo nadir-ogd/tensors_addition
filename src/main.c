@@ -26,7 +26,7 @@ int main (int argc, char ** argv)
 	for (int i = 0 ; i < ma0->mem_length ; ++i)
 	{
 		ma0->mem[i] = i * 10;
-		printf("&mem[%d]=%p\tmem[%d] = %d\n", i, ma0->mem+i, i, ma0->mem[i]);
+		// printf("&mem[%d]=%p\tmem[%d] = %d\n", i, ma0->mem+i, i, ma0->mem[i]);
 	}
 
 	printf("Populating tensor\n");
@@ -54,7 +54,7 @@ int main (int argc, char ** argv)
 	for (int i = 0 ; i < ma1->mem_length ; ++i)
 	{
 		ma1->mem[i] = i * 10;
-		printf("&mem[%d]=%p\tmem[%d] = %d\n", i, ma1->mem+i, i, ma1->mem[i]);
+		// printf("&mem[%d]=%p\tmem[%d] = %d\n", i, ma1->mem+i, i, ma1->mem[i]);
 	}
 
 	printf("Populating tensor\n");

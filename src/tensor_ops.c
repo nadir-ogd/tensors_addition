@@ -6,7 +6,7 @@ mem_abs_create(struct mem_abs ** ma)
 	*ma = malloc(sizeof(struct mem_abs));
 	(*ma)->mem = malloc(sizeof(int));
 	(*ma)->mem_length = 1;
-	printf("mem ptr during alloc = %p\n", (*ma)->mem);	
+	// printf("mem ptr during alloc = %p\n", (*ma)->mem);	
 
 	return 0;
 }
@@ -25,7 +25,7 @@ mem_abs_grow(struct mem_abs * ma, size_t size)
 {
 	ma->mem = realloc(ma->mem, (ma->mem_length * size * sizeof(int)));
 	ma->mem_length *= size;
-	printf("Memory abstraction extended\n");
+	// printf("Memory abstraction extended\n");
 
 	return 0;
 }
@@ -49,8 +49,8 @@ tensor_create(struct tensor ** t, size_t size, int * dimslength, struct mem_abs 
 	}
 
 	(*t)->base_addr = ma->mem; // &mem[0];
-	printf("Created %ld dimensions tensor with base address = %p\n",
-			(*t)->nb_dims, (*t)->base_addr);
+	// printf("Created %ld dimensions tensor with base address = %p\n",
+			// (*t)->nb_dims, (*t)->base_addr);
 
 	return 0;
 }
@@ -67,6 +67,7 @@ tensor_destroy(struct tensor * t)
 void
 get_point_addr_recurs(struct tensor * t, int idx, int * coords, int * offset, int ** addr)
 {
+	// << OPTIM >> : Appels récursifs
 	// printf("idx = %d coord = %d offset = %d\n", idx, coords[idx], *offset);
 	
 	if (idx >= t->nb_dims)
@@ -95,6 +96,8 @@ get_point_addr_recurs(struct tensor * t, int idx, int * coords, int * offset, in
 void
 tensor_run_recurs_row_first(struct tensor * t, int idx, int * dim_size, int * coords)
 {
+	// << OPTIM >> : Appels récursifs
+
 	int i;
 	
 	if (idx >= t->nb_dims)
@@ -104,20 +107,23 @@ tensor_run_recurs_row_first(struct tensor * t, int idx, int * dim_size, int * co
 		pt_addr = t->base_addr;
 
 		//printf("t->nb_dims = %ld\n", t->nb_dims);
-		printf("point ( ");
-		for (i = 0 ; i < t->nb_dims ; ++i) 
-		{
-			printf("%d ", coords[i]);
-		}
+		// printf("point ( ");
+
+		//<< OPTIM >> : boucle utilisée pour l'affichage seulement, on peut l'enlever
+
+		// for (i = 0 ; i < t->nb_dims ; ++i) 
+		// {
+		// 	printf("%d ", coords[i]);
+		// }
 			
 		offset = 0;
 		get_point_addr_recurs(t, 0, coords, &offset, &pt_addr);
-		printf(") mem offset = %d\taddr = %p ", offset, pt_addr);	
+		// printf(") mem offset = %d\taddr = %p ", offset, pt_addr);	
 		
 		//init w/ val
 		*pt_addr = offset;
 
-		printf("value = %d\n", *pt_addr);
+		// printf("value = %d\n", *pt_addr);
 
 		return;
 	}
@@ -134,6 +140,8 @@ tensor_run_recurs_row_first(struct tensor * t, int idx, int * dim_size, int * co
 int 
 tensor_init(struct tensor * t, int * dimensions)
 {
+	//<< OPTIM >> : printf dans cette fonction sont appelés lorsque la fonction est appelée seulement
+
 	printf("Starting initialization\n");
 
 	int coords[t->nb_dims];
@@ -148,6 +156,8 @@ tensor_init(struct tensor * t, int * dimensions)
 void
 tensor_add_recurs_row_first(int idx, struct tensor * A, int * dim_A, struct tensor * B, int * coords)
 {
+	// << OPTIM >> : Appels récursifs
+
 	int i;
 	
 	if (idx >= A->nb_dims)
@@ -158,21 +168,24 @@ tensor_add_recurs_row_first(int idx, struct tensor * A, int * dim_A, struct tens
 		pB_addr = B->base_addr;
 		int offset;
 
-		printf("point ( ");
-		for (i = 0 ; i < A->nb_dims ; ++i) 
-		{
-			printf("%d ", coords[i]);
-		}
+		// printf("point ( ");
+
+		//<< OPTIM >> : boucle utilisée pour l'affichage seulement, on peut l'enlever
+
+		// for (i = 0 ; i < A->nb_dims ; ++i) 
+		// {
+		// 	printf("%d ", coords[i]);
+		// }
 			
 		offset = 0;
 		get_point_addr_recurs(B, 0, coords, &offset, &pB_addr);
 		offset = 0;
 		get_point_addr_recurs(A, 0, coords, &offset, &pA_addr);
-		printf(") mem offset = %d\taddr = %p ", offset, pA_addr);	
+		// printf(") mem offset = %d\taddr = %p ", offset, pA_addr);	
 		
 		*pA_addr += *pB_addr;
 
-		printf("value = %d\n", *pA_addr);
+		// printf("value = %d\n", *pA_addr);
 
 		return;
 	}
@@ -189,6 +202,8 @@ tensor_add_recurs_row_first(int idx, struct tensor * A, int * dim_A, struct tens
 int 
 tensor_add(struct tensor * A, int * dim_A, struct tensor * B)
 {
+	//<< OPTIM >> : printf dans cette fonction sont appelés lorsque la fonction est appelée seulement
+
 	printf("Starting initialization\n");
 
 	int coords[A->nb_dims];

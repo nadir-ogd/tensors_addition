@@ -70,7 +70,8 @@ int tensor_destroy(struct tensor *);
  *	- int *				offset		: memory offset of the target point
  *  - int **			addr		: pointer to the target point address
  */
-void get_point_addr_recurs(struct tensor *, int, int *, int *, int **);
+// void get_point_addr_recurs(struct tensor *, int, int *, int *, int **);
+void get_point_addr_iter(struct tensor *, int *, int *, int **);
 
 /* run through a tensor "row first" recursively - calls get_point_addr_recurs()
  *	- struct tensor *	t			: pointer to struct

@@ -1,0 +1,422 @@
+--------------------------------------------------------------------------------
+Profile data file 'callgrind.out.280386' (creator: callgrind-3.18.1)
+--------------------------------------------------------------------------------
+I1 cache: 
+D1 cache: 
+LL cache: 
+Timerange: Basic block 0 - 9928051
+Trigger: Program termination
+Profiled target:  ./bin/tensor_operations (PID 280386, part 1)
+Events recorded:  Ir
+Events shown:     Ir
+Event sort order: Ir
+Thresholds:       99
+Include dirs:     
+User annotated:   
+Auto-annotation:  on
+
+--------------------------------------------------------------------------------
+Ir                   
+--------------------------------------------------------------------------------
+146,745,937 (100.0%)  PROGRAM TOTALS
+
+--------------------------------------------------------------------------------
+Ir                   file:function
+--------------------------------------------------------------------------------
+98,400,000 (67.05%)  src/tensor_ops.c:get_point_addr_iter [/home/nadir/S2_CHPS/Debogage/PROJET/tensor_add/bin/tensor_operations]
+24,706,400 (16.84%)  src/tensor_ops.c:tensor_run_recurs_row_first'2 [/home/nadir/S2_CHPS/Debogage/PROJET/tensor_add/bin/tensor_operations]
+15,783,300 (10.76%)  src/tensor_ops.c:tensor_add_recurs_row_first'2 [/home/nadir/S2_CHPS/Debogage/PROJET/tensor_add/bin/tensor_operations]
+ 7,600,200 ( 5.18%)  src/main.c:main [/home/nadir/S2_CHPS/Debogage/PROJET/tensor_add/bin/tensor_operations]
+
+--------------------------------------------------------------------------------
+-- Auto-annotated source: src/main.c
+--------------------------------------------------------------------------------
+Ir                 
+
+        .           #include "tensor_ops.h"
+        .           
+        .           int main (int argc, char ** argv)
+        9 ( 0.00%)  {
+        3 ( 0.00%)      int dimensions[3] = { 100, 100 , 20 };
+        .           	
+        .           	struct mem_abs * ma0;
+        .           	struct tensor * t0;
+        .           	// 22001
+        .           		
+        3 ( 0.00%)  	printf("Creationg memory abstraction\n");
+    3,845 ( 0.00%)  => ???:0x00000000001090b0 (1x)
+        3 ( 0.00%)  	mem_abs_create(&ma0);
+      395 ( 0.00%)  => /home/nadir/S2_CHPS/Debogage/PROJET/tensor_add/src/tensor_ops.c:mem_abs_create (1x)
+        3 ( 0.00%)  	printf("Memory abstraction created\n");
+      453 ( 0.00%)  => ???:0x00000000001090b0 (1x)
+        .           	
+        3 ( 0.00%)  	printf("Checking initialized memory abstraction\n");
+      527 ( 0.00%)  => ???:0x00000000001090b0 (1x)
+        9 ( 0.00%)  	printf("length = %ld base = %p\n", ma0->mem_length, ma0->mem); 
+    1,517 ( 0.00%)  => ???:0x00000000001090d0 (1x)
+        .           
+        3 ( 0.00%)  	printf("Creating tensor\n");
+      400 ( 0.00%)  => ???:0x00000000001090b0 (1x)
+        6 ( 0.00%)  	tensor_create(&t0, 3, dimensions, ma0);
+   41,627 ( 0.03%)  => /home/nadir/S2_CHPS/Debogage/PROJET/tensor_add/src/tensor_ops.c:tensor_create (1x)
+        3 ( 0.00%)  	printf("Tensor created\n");
+      395 ( 0.00%)  => ???:0x00000000001090b0 (1x)
+        .           
+        3 ( 0.00%)  	printf("Checking extended memory abstraction\n");
+      512 ( 0.00%)  => ???:0x00000000001090b0 (1x)
+        9 ( 0.00%)  	printf("length = %ld base = %p\n", ma0->mem_length, ma0->mem); 
+    1,611 ( 0.00%)  => ???:0x00000000001090d0 (1x)
+        .           
+        3 ( 0.00%)  	printf("Testing mem...\n");
+      395 ( 0.00%)  => ???:0x00000000001090b0 (1x)
+1,400,008 ( 0.95%)  	for (int i = 0 ; i < ma0->mem_length ; ++i)
+        .           	{
+2,400,000 ( 1.64%)  		ma0->mem[i] = i * 10;
+        .           		// printf("&mem[%d]=%p\tmem[%d] = %d\n", i, ma0->mem+i, i, ma0->mem[i]);
+        .           	}
+        .           
+        3 ( 0.00%)  	printf("Populating tensor\n");
+      408 ( 0.00%)  => ???:0x00000000001090b0 (1x)
+        5 ( 0.00%)  	tensor_init(t0, dimensions);
+36,956,879 (25.18%)  => /home/nadir/S2_CHPS/Debogage/PROJET/tensor_add/src/tensor_ops.c:tensor_init (1x)
+        3 ( 0.00%)  	printf("Tensor populated\n");
+      403 ( 0.00%)  => ???:0x00000000001090b0 (1x)
+        .           
+        .           	struct mem_abs * ma1;
+        .           	struct tensor * t1;
+        .           		
+        3 ( 0.00%)  	printf("Creationg memory abstraction\n");
+      463 ( 0.00%)  => ???:0x00000000001090b0 (1x)
+        3 ( 0.00%)  	mem_abs_create(&ma1);
+      251 ( 0.00%)  => /home/nadir/S2_CHPS/Debogage/PROJET/tensor_add/src/tensor_ops.c:mem_abs_create (1x)
+        3 ( 0.00%)  	printf("Memory abstraction created\n");
+      453 ( 0.00%)  => ???:0x00000000001090b0 (1x)
+        .           	
+        3 ( 0.00%)  	printf("Checking initialized memory abstraction\n");
+      527 ( 0.00%)  => ???:0x00000000001090b0 (1x)
+        9 ( 0.00%)  	printf("length = %ld base = %p\n", ma1->mem_length, ma1->mem); 
+    1,517 ( 0.00%)  => ???:0x00000000001090d0 (1x)
+        .           
+        3 ( 0.00%)  	printf("Creating tensor\n");
+      400 ( 0.00%)  => ???:0x00000000001090b0 (1x)
+        6 ( 0.00%)  	tensor_create(&t1, 3, dimensions, ma1);
+   41,627 ( 0.03%)  => /home/nadir/S2_CHPS/Debogage/PROJET/tensor_add/src/tensor_ops.c:tensor_create (1x)
+        3 ( 0.00%)  	printf("Tensor created\n");
+      395 ( 0.00%)  => ???:0x00000000001090b0 (1x)
+        .           
+        3 ( 0.00%)  	printf("Checking extended memory abstraction\n");
+      512 ( 0.00%)  => ???:0x00000000001090b0 (1x)
+        9 ( 0.00%)  	printf("length = %ld base = %p\n", ma1->mem_length, ma1->mem); 
+    1,611 ( 0.00%)  => ???:0x00000000001090d0 (1x)
+        .           
+        3 ( 0.00%)  	printf("Testing mem...\n");
+      395 ( 0.00%)  => ???:0x00000000001090b0 (1x)
+1,400,008 ( 0.95%)  	for (int i = 0 ; i < ma1->mem_length ; ++i)
+        .           	{
+2,400,000 ( 1.64%)  		ma1->mem[i] = i * 10;
+        .           		// printf("&mem[%d]=%p\tmem[%d] = %d\n", i, ma1->mem+i, i, ma1->mem[i]);
+        .           	}
+        .           
+        3 ( 0.00%)  	printf("Populating tensor\n");
+      408 ( 0.00%)  => ???:0x00000000001090b0 (1x)
+        5 ( 0.00%)  	tensor_init(t1, dimensions);
+36,956,879 (25.18%)  => /home/nadir/S2_CHPS/Debogage/PROJET/tensor_add/src/tensor_ops.c:tensor_init (1x)
+        3 ( 0.00%)  	printf("Tensor populated\n");
+      403 ( 0.00%)  => ???:0x00000000001090b0 (1x)
+        .           
+        3 ( 0.00%)  	printf("Tensor addition\n");
+      400 ( 0.00%)  => ???:0x00000000001090b0 (1x)
+        6 ( 0.00%)  	tensor_add(t1, dimensions, t1);
+64,987,155 (44.29%)  => /home/nadir/S2_CHPS/Debogage/PROJET/tensor_add/src/tensor_ops.c:tensor_add (1x)
+        3 ( 0.00%)  	printf("Tensor added\n");
+      385 ( 0.00%)  => ???:0x00000000001090b0 (1x)
+        .           
+        3 ( 0.00%)  	printf("Destroying tensor\n");
+      408 ( 0.00%)  => ???:0x00000000001090b0 (1x)
+        3 ( 0.00%)  	tensor_destroy(t1);
+      197 ( 0.00%)  => /home/nadir/S2_CHPS/Debogage/PROJET/tensor_add/src/tensor_ops.c:tensor_destroy (1x)
+        3 ( 0.00%)  	printf("Tensor destroyed\n");
+      403 ( 0.00%)  => ???:0x00000000001090b0 (1x)
+        .           
+        3 ( 0.00%)  	printf("Destroying memory abstraction\n");
+      468 ( 0.00%)  => ???:0x00000000001090b0 (1x)
+        3 ( 0.00%)  	mem_abs_destroy(ma1);
+      174 ( 0.00%)  => /home/nadir/S2_CHPS/Debogage/PROJET/tensor_add/src/tensor_ops.c:mem_abs_destroy (1x)
+        3 ( 0.00%)  	printf("Memory abstraction destroyed\n");
+      463 ( 0.00%)  => ???:0x00000000001090b0 (1x)
+        .           
+        3 ( 0.00%)  	printf("Destroying tensor\n");
+      408 ( 0.00%)  => ???:0x00000000001090b0 (1x)
+        3 ( 0.00%)  	tensor_destroy(t0);
+      197 ( 0.00%)  => /home/nadir/S2_CHPS/Debogage/PROJET/tensor_add/src/tensor_ops.c:tensor_destroy (1x)
+        3 ( 0.00%)  	printf("Tensor destroyed\n");
+      403 ( 0.00%)  => ???:0x00000000001090b0 (1x)
+        .           
+        3 ( 0.00%)  	printf("Destroying memory abstraction\n");
+      468 ( 0.00%)  => ???:0x00000000001090b0 (1x)
+        3 ( 0.00%)  	mem_abs_destroy(ma0);
+      174 ( 0.00%)  => /home/nadir/S2_CHPS/Debogage/PROJET/tensor_add/src/tensor_ops.c:mem_abs_destroy (1x)
+        3 ( 0.00%)  	printf("Memory abstraction destroyed\n");
+      463 ( 0.00%)  => ???:0x00000000001090b0 (1x)
+        .               /**
+        .                * Ex: How to access a particular point in a tensor
+        .           	 *  printf("Accessing point : ( 3, 2, 1 )\n");
+        .           	 *  int coords[3] = { 3, 2, 1 }; 
+        .           	 *  int * point;
+        .           	 *  int offset;
+        .           	 *  point = t1->base_addr;
+        .           	 *  offset = 0;
+        .           	 *  get_point_addr_recurs(t1, 0, coords, &offset, &point);
+        .           	 *  printf("&point = %p, point = %d\n", point, *point);
+        .                */
+        .           
+        1 ( 0.00%)  	return 0;
+        5 ( 0.00%)  }
+
+--------------------------------------------------------------------------------
+-- Auto-annotated source: src/tensor_ops.c
+--------------------------------------------------------------------------------
+Ir                  
+
+         .           #include "tensor_ops.h"
+         .           
+         .           int
+         .           mem_abs_create(struct mem_abs ** ma)
+        12 ( 0.00%)  {
+        10 ( 0.00%)  	*ma = malloc(sizeof(struct mem_abs));
+       234 ( 0.00%)  => ???:0x00000000001090e0 (2x)
+        10 ( 0.00%)  	(*ma)->mem = malloc(sizeof(int));
+       366 ( 0.00%)  => ???:0x00000000001090e0 (2x)
+         6 ( 0.00%)  	(*ma)->mem_length = 1;
+         .           	// printf("mem ptr during alloc = %p\n", (*ma)->mem);	
+         .           
+         2 ( 0.00%)  	return 0;
+         6 ( 0.00%)  }
+         .           
+         .           int
+         .           mem_abs_destroy(struct mem_abs * ma)
+        10 ( 0.00%)  {
+         8 ( 0.00%)  	free(ma->mem);
+       136 ( 0.00%)  => ???:0x00000000001090a0 (2x)
+         6 ( 0.00%)  	free(ma);
+       182 ( 0.00%)  => ???:0x00000000001090a0 (2x)
+         .           	
+         2 ( 0.00%)  	return 0;
+         4 ( 0.00%)  }
+         .           
+         .           int 
+         .           mem_abs_grow(struct mem_abs * ma, size_t size)
+        36 ( 0.00%)  {
+        66 ( 0.00%)  	ma->mem = realloc(ma->mem, (ma->mem_length * size * sizeof(int)));
+    82,006 ( 0.06%)  => ???:0x00000000001090f0 (6x)
+        36 ( 0.00%)  	ma->mem_length *= size;
+         .           	// printf("Memory abstraction extended\n");
+         .           
+         6 ( 0.00%)  	return 0;
+        12 ( 0.00%)  }
+         .           
+         .           
+         .           int
+         .           tensor_create(struct tensor ** t, size_t size, int * dimslength, struct mem_abs * ma)
+        18 ( 0.00%)  {
+         .           	int i; 
+        10 ( 0.00%)  	*t = malloc(sizeof(struct tensor));
+       378 ( 0.00%)  => ???:0x00000000001090e0 (2x)
+         .           	
+         8 ( 0.00%)  	(*t)->nb_dims = size;
+        18 ( 0.00%)  	(*t)->dims = malloc(sizeof(struct dimension) * (*t)->nb_dims);
+       378 ( 0.00%)  => ???:0x00000000001090e0 (2x)
+         .           
+        66 ( 0.00%)  	for (i = 0 ; i < (*t)->nb_dims ; ++i) 
+         .           	{
+        84 ( 0.00%)  		(*t)->dims[i].length = dimslength[i];
+        48 ( 0.00%)  		(*t)->dims[i].stride = 1;							//memory contiguous	
+         .           		
+        66 ( 0.00%)  		mem_abs_grow(ma, (size_t)dimslength[i]);
+    82,162 ( 0.06%)  => src/tensor_ops.c:mem_abs_grow (6x)
+         .           	}
+         .           
+        10 ( 0.00%)  	(*t)->base_addr = ma->mem; // &mem[0];
+         .           	// printf("Created %ld dimensions tensor with base address = %p\n",
+         .           			// (*t)->nb_dims, (*t)->base_addr);
+         .           
+         2 ( 0.00%)  	return 0;
+         6 ( 0.00%)  }
+         .           
+         .           int
+         .           tensor_destroy(struct tensor * t)
+        10 ( 0.00%)  {
+         8 ( 0.00%)  	free(t->dims);
+       182 ( 0.00%)  => ???:0x00000000001090a0 (2x)
+         6 ( 0.00%)  	free(t);
+       182 ( 0.00%)  => ???:0x00000000001090a0 (2x)
+         .           
+         2 ( 0.00%)  	return 0;
+         4 ( 0.00%)  }
+         .           
+         .           // void
+         .           // get_point_addr_recurs(struct tensor * t, int idx, int * coords, int * offset, int ** addr)
+         .           // {
+         .           // 	// << OPTIM >> : Appels récursifs
+         .           // 	// printf("idx = %d coord = %d offset = %d\n", idx, coords[idx], *offset);
+         .           	
+         .           // 	if (idx >= t->nb_dims)
+-- line 73 ----------------------------------------
+-- line 89 ----------------------------------------
+         .           // 			//printf("ite %d temp = %d\n", i, temp);
+         .           // 		}
+         .           // 		(*offset) += temp;
+         .           // 		get_point_addr_recurs(t, (idx+1), coords, offset, addr);
+         .           // 	}
+         .           // }
+         .           
+         .           // << OPTIM >> version itérative de get_point_addr_iter :
+ 5,600,000 ( 3.82%)  void get_point_addr_iter(struct tensor *t, int *coords, int *offset, int **addr) {    
+23,200,000 (15.81%)      for (int i = 0; i < t->nb_dims; ++i) {
+33,600,000 (22.90%)          (*offset) *= t->dims[i].length;
+26,400,000 (17.99%)          (*offset) += coords[i];
+         .               }
+         .           	
+ 7,200,000 ( 4.91%)  	*addr += *offset;
+ 2,400,000 ( 1.64%)  }
+         .           
+         .           void
+         .           tensor_run_recurs_row_first(struct tensor * t, int idx, int * dim_size, int * coords)
+ 4,622,222 ( 3.15%)  {
+         .           	// << OPTIM >> : Appels récursifs
+         .           
+         .           	int i;
+         .           	
+ 2,521,212 ( 1.72%)  	if (idx >= t->nb_dims)
+         .           	{
+         .           		int * pt_addr; 
+         .           		int offset;
+ 1,200,000 ( 0.82%)  		pt_addr = t->base_addr;
+         .           
+         .           		//printf("t->nb_dims = %ld\n", t->nb_dims);
+         .           		// printf("point ( ");
+         .           
+         .           		//<< OPTIM >> : boucle utilisée pour l'affichage seulement, on peut l'enlever
+         .           
+         .           		// for (i = 0 ; i < t->nb_dims ; ++i) 
+         .           		// {
+         .           		// 	printf("%d ", coords[i]);
+         .           		// }
+         .           			
+   400,000 ( 0.27%)  		offset = 0;
+ 2,400,000 ( 1.64%)  		get_point_addr_iter(t, coords, &offset, &pt_addr);
+49,200,000 (33.53%)  => src/tensor_ops.c:get_point_addr_iter (400,000x)
+         .           		// printf(") mem offset = %d\taddr = %p ", offset, pt_addr);	
+         .           		
+         .           		//init w/ val
+ 1,600,000 ( 1.09%)  		*pt_addr = offset;
+         .           
+         .           		// printf("value = %d\n", *pt_addr);
+         .           
+         .           		return;
+         .           	}
+         .           	else
+         .           	{	
+ 3,983,820 ( 2.71%)  		for (i = 0 ; i < dim_size[idx] ; ++i)
+         .           		{
+ 2,941,400 ( 2.00%)  			coords[idx] = i;
+ 2,941,400 ( 2.00%)  			tensor_run_recurs_row_first(t, (idx+1), dim_size, coords);
+73,906,400 (50.36%)  => src/tensor_ops.c:tensor_run_recurs_row_first'2 (200x)
+         .           		}
+         .           	}
+ 2,101,010 ( 1.43%)  }
+         .           
+         .           int 
+         .           tensor_init(struct tensor * t, int * dimensions)
+        32 ( 0.00%)  {
+         .           	//<< OPTIM >> : printf dans cette fonction sont appelés lorsque la fonction est appelée seulement
+         .           
+         6 ( 0.00%)  	printf("Starting initialization\n");
+       876 ( 0.00%)  => ???:0x00000000001090b0 (2x)
+         .           
+        78 ( 0.00%)  	int coords[t->nb_dims];
+         .           	
+         6 ( 0.00%)  	printf("Starting recursivity\n");
+       846 ( 0.00%)  => ???:0x00000000001090b0 (2x)
+        12 ( 0.00%)  	tensor_run_recurs_row_first(t, 0, dimensions, coords);
+73,911,064 (50.37%)  => src/tensor_ops.c:tensor_run_recurs_row_first (2x)
+         6 ( 0.00%)  	printf("Recursivity over\n");
+       806 ( 0.00%)  => ???:0x00000000001090b0 (2x)
+         .           
+         4 ( 0.00%)  	return 0;
+        22 ( 0.00%)  }
+         .           
+         .           void
+         .           tensor_add_recurs_row_first(int idx, struct tensor * A, int * dim_A, struct tensor * B, int * coords)
+ 2,521,212 ( 1.72%)  {
+         .           	// << OPTIM >> : Appels récursifs
+         .           
+         .           	int i;
+         .           	
+ 1,260,606 ( 0.86%)  	if (idx >= A->nb_dims)
+         .           	{
+         .           		int * pA_addr; 
+         .           		int * pB_addr; 
+   600,000 ( 0.41%)  		pA_addr = A->base_addr;
+   600,000 ( 0.41%)  		pB_addr = B->base_addr;
+         .           		int offset;
+         .           
+         .           		// printf("point ( ");
+         .           
+         .           		//<< OPTIM >> : boucle utilisée pour l'affichage seulement, on peut l'enlever
+         .           
+         .           		// for (i = 0 ; i < A->nb_dims ; ++i) 
+         .           		// {
+         .           		// 	printf("%d ", coords[i]);
+         .           		// }
+         .           			
+   200,000 ( 0.14%)  		offset = 0;
+ 1,200,000 ( 0.82%)  		get_point_addr_iter(B, coords, &offset, &pB_addr);
+24,600,000 (16.76%)  => src/tensor_ops.c:get_point_addr_iter (200,000x)
+   200,000 ( 0.14%)  		offset = 0;
+ 1,200,000 ( 0.82%)  		get_point_addr_iter(A, coords, &offset, &pA_addr);
+24,600,000 (16.76%)  => src/tensor_ops.c:get_point_addr_iter (200,000x)
+         .           		// printf(") mem offset = %d\taddr = %p ", offset, pA_addr);	
+         .           		
+ 1,600,000 ( 1.09%)  		*pA_addr += *pB_addr;
+         .           
+         .           		// printf("value = %d\n", *pA_addr);
+         .           
+         .           		return;
+         .           	}
+         .           	else
+         .           	{	
+ 1,991,910 ( 1.36%)  		for (i = 0 ; i < dim_A[idx] ; ++i)
+         .           		{
+ 1,470,700 ( 1.00%)  			coords[idx] = i;
+ 1,890,900 ( 1.29%)  			tensor_add_recurs_row_first((idx+1), A, dim_A, B, coords);
+64,983,300 (44.28%)  => src/tensor_ops.c:tensor_add_recurs_row_first'2 (100x)
+         .           		}
+         .           	}
+ 1,050,505 ( 0.72%)  }
+         .           
+         .           int 
+         .           tensor_add(struct tensor * A, int * dim_A, struct tensor * B)
+        17 ( 0.00%)  {
+         .           	//<< OPTIM >> : printf dans cette fonction sont appelés lorsque la fonction est appelée seulement
+         .           
+         3 ( 0.00%)  	printf("Starting initialization\n");
+       438 ( 0.00%)  => ???:0x00000000001090b0 (1x)
+         .           
+        39 ( 0.00%)  	int coords[A->nb_dims];
+         .           	
+         3 ( 0.00%)  	printf("Starting addition\n");
+       408 ( 0.00%)  => ???:0x00000000001090b0 (1x)
+         8 ( 0.00%)  	tensor_add_recurs_row_first(0, A, dim_A, B, coords);
+64,985,833 (44.28%)  => src/tensor_ops.c:tensor_add_recurs_row_first (1x)
+         3 ( 0.00%)  	printf("Addition over\n");
+       390 ( 0.00%)  => ???:0x00000000001090b0 (1x)
+         .           
+         2 ( 0.00%)  	return 0;
+        11 ( 0.00%)  }
+
+--------------------------------------------------------------------------------
+Ir                   
+--------------------------------------------------------------------------------
+146,497,947 (99.83%)  events annotated
+

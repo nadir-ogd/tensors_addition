@@ -1,0 +1,457 @@
+--------------------------------------------------------------------------------
+Profile data file 'callgrind.out.201002' (creator: callgrind-3.18.1)
+--------------------------------------------------------------------------------
+I1 cache: 
+D1 cache: 
+LL cache: 
+Timerange: Basic block 0 - 862572238
+Trigger: Program termination
+Profiled target:  ./bin/tensor_operations (PID 201002, part 1)
+Events recorded:  Ir
+Events shown:     Ir
+Event sort order: Ir
+Thresholds:       99
+Include dirs:     
+User annotated:   
+Auto-annotation:  on
+
+--------------------------------------------------------------------------------
+Ir                     
+--------------------------------------------------------------------------------
+4,067,591,648 (100.0%)  PROGRAM TOTALS
+
+--------------------------------------------------------------------------------
+Ir                      file:function
+--------------------------------------------------------------------------------
+1,463,909,790 (35.99%)  ./stdio-common/./stdio-common/vfprintf-internal.c:__vfprintf_internal [/usr/lib/x86_64-linux-gnu/libc.so.6]
+  947,321,194 (23.29%)  ./libio/./libio/fileops.c:_IO_file_xsputn@@GLIBC_2.2.5 [/usr/lib/x86_64-linux-gnu/libc.so.6]
+  360,232,166 ( 8.86%)  ./stdio-common/./stdio-common/_itoa.c:_itoa_word [/usr/lib/x86_64-linux-gnu/libc.so.6]
+  218,590,064 ( 5.37%)  ./string/../sysdeps/x86_64/multiarch/memmove-vec-unaligned-erms.S:__mempcpy_avx_unaligned_erms [/usr/lib/x86_64-linux-gnu/libc.so.6]
+  174,800,436 ( 4.30%)  ./string/../sysdeps/x86_64/multiarch/strchr-avx2.S:__strchrnul_avx2 [/usr/lib/x86_64-linux-gnu/libc.so.6]
+  120,000,240 ( 2.95%)  ./stdio-common/./stdio-common/printf.c:printf [/usr/lib/x86_64-linux-gnu/libc.so.6]
+  113,600,000 ( 2.79%)  src/tensor_ops.c:get_point_addr_recurs'2 [/home/nadir/S2_CHPS/Debogage/PROJET/tensor_add/bin/tensor_operations]
+   91,003,495 ( 2.24%)  ./libio/./libio/fileops.c:_IO_file_overflow@@GLIBC_2.2.5 [/usr/lib/x86_64-linux-gnu/libc.so.6]
+   88,000,212 ( 2.16%)  ./stdio-common/../libio/libioP.h:__vfprintf_internal
+   66,400,000 ( 1.63%)  src/tensor_ops.c:get_point_addr_recurs [/home/nadir/S2_CHPS/Debogage/PROJET/tensor_add/bin/tensor_operations]
+   57,506,400 ( 1.41%)  src/tensor_ops.c:tensor_run_recurs_row_first'2 [/home/nadir/S2_CHPS/Debogage/PROJET/tensor_add/bin/tensor_operations]
+   54,002,759 ( 1.33%)  ./libio/./libio/fileops.c:_IO_do_write@@GLIBC_2.2.5 [/usr/lib/x86_64-linux-gnu/libc.so.6]
+   42,000,102 ( 1.03%)  ./stdio-common/./stdio-common/printf-parse.h:__vfprintf_internal
+   40,000,100 ( 0.98%)  ./nptl/./nptl/libc-cleanup.c:__libc_cleanup_push_defer [/usr/lib/x86_64-linux-gnu/libc.so.6]
+   37,001,887 ( 0.91%)  ./libio/./libio/fileops.c:_IO_file_write@@GLIBC_2.2.5 [/usr/lib/x86_64-linux-gnu/libc.so.6]
+   32,583,300 ( 0.80%)  src/tensor_ops.c:tensor_add_recurs_row_first'2 [/home/nadir/S2_CHPS/Debogage/PROJET/tensor_add/bin/tensor_operations]
+   32,000,080 ( 0.79%)  ./nptl/./nptl/libc-cleanup.c:__libc_cleanup_pop_restore [/usr/lib/x86_64-linux-gnu/libc.so.6]
+   25,200,156 ( 0.62%)  ???:0x00000000048733e0 [???]
+   22,000,649 ( 0.54%)  ./libio/./libio/genops.c:__overflow [/usr/lib/x86_64-linux-gnu/libc.so.6]
+   18,400,044 ( 0.45%)  ???:0x00000000048734d0 [???]
+   16,800,200 ( 0.41%)  src/main.c:main [/home/nadir/S2_CHPS/Debogage/PROJET/tensor_add/bin/tensor_operations]
+   14,000,413 ( 0.34%)  ./libio/./libio/libioP.h:__overflow
+
+--------------------------------------------------------------------------------
+-- Auto-annotated source: src/tensor_ops.c
+--------------------------------------------------------------------------------
+Ir                  
+
+         .           #include "tensor_ops.h"
+         .           
+         .           int
+         .           mem_abs_create(struct mem_abs ** ma)
+        12 ( 0.00%)  {
+        10 ( 0.00%)  	*ma = malloc(sizeof(struct mem_abs));
+       234 ( 0.00%)  => ???:0x00000000001090e0 (2x)
+        10 ( 0.00%)  	(*ma)->mem = malloc(sizeof(int));
+       366 ( 0.00%)  => ???:0x00000000001090e0 (2x)
+         6 ( 0.00%)  	(*ma)->mem_length = 1;
+        16 ( 0.00%)  	printf("mem ptr during alloc = %p\n", (*ma)->mem);	
+     2,308 ( 0.00%)  => ???:0x00000000001090d0 (2x)
+         .           
+         2 ( 0.00%)  	return 0;
+         6 ( 0.00%)  }
+         .           
+         .           int
+         .           mem_abs_destroy(struct mem_abs * ma)
+        10 ( 0.00%)  {
+         8 ( 0.00%)  	free(ma->mem);
+       136 ( 0.00%)  => ???:0x00000000001090a0 (2x)
+         6 ( 0.00%)  	free(ma);
+       182 ( 0.00%)  => ???:0x00000000001090a0 (2x)
+         .           	
+         2 ( 0.00%)  	return 0;
+         4 ( 0.00%)  }
+         .           
+         .           int 
+         .           mem_abs_grow(struct mem_abs * ma, size_t size)
+        36 ( 0.00%)  {
+        66 ( 0.00%)  	ma->mem = realloc(ma->mem, (ma->mem_length * size * sizeof(int)));
+    82,006 ( 0.00%)  => ???:0x00000000001090f0 (6x)
+        36 ( 0.00%)  	ma->mem_length *= size;
+        18 ( 0.00%)  	printf("Memory abstraction extended\n");
+     2,748 ( 0.00%)  => ???:0x00000000001090b0 (6x)
+         .           
+         6 ( 0.00%)  	return 0;
+        12 ( 0.00%)  }
+         .           
+         .           
+         .           int
+         .           tensor_create(struct tensor ** t, size_t size, int * dimslength, struct mem_abs * ma)
+        18 ( 0.00%)  {
+         .           	int i; 
+        10 ( 0.00%)  	*t = malloc(sizeof(struct tensor));
+       378 ( 0.00%)  => ???:0x00000000001090e0 (2x)
+         .           	
+         8 ( 0.00%)  	(*t)->nb_dims = size;
+        18 ( 0.00%)  	(*t)->dims = malloc(sizeof(struct dimension) * (*t)->nb_dims);
+       378 ( 0.00%)  => ???:0x00000000001090e0 (2x)
+         .           
+        66 ( 0.00%)  	for (i = 0 ; i < (*t)->nb_dims ; ++i) 
+         .           	{
+        84 ( 0.00%)  		(*t)->dims[i].length = dimslength[i];
+        48 ( 0.00%)  		(*t)->dims[i].stride = 1;							//memory contiguous	
+         .           		
+        66 ( 0.00%)  		mem_abs_grow(ma, (size_t)dimslength[i]);
+    84,928 ( 0.00%)  => src/tensor_ops.c:mem_abs_grow (6x)
+         .           	}
+         .           
+        10 ( 0.00%)  	(*t)->base_addr = ma->mem; // &mem[0];
+        14 ( 0.00%)  	printf("Created %ld dimensions tensor with base address = %p\n",
+     3,350 ( 0.00%)  => ???:0x00000000001090d0 (2x)
+         8 ( 0.00%)  			(*t)->nb_dims, (*t)->base_addr);
+         .           
+         2 ( 0.00%)  	return 0;
+         6 ( 0.00%)  }
+         .           
+         .           int
+         .           tensor_destroy(struct tensor * t)
+        10 ( 0.00%)  {
+         8 ( 0.00%)  	free(t->dims);
+       182 ( 0.00%)  => ???:0x00000000001090a0 (2x)
+         6 ( 0.00%)  	free(t);
+       182 ( 0.00%)  => ???:0x00000000001090a0 (2x)
+         .           
+         2 ( 0.00%)  	return 0;
+         4 ( 0.00%)  }
+         .           
+         .           void
+         .           get_point_addr_recurs(struct tensor * t, int idx, int * coords, int * offset, int ** addr)
+28,800,000 ( 0.71%)  {
+         .           	// printf("idx = %d coord = %d offset = %d\n", idx, coords[idx], *offset);
+         .           	
+19,200,000 ( 0.47%)  	if (idx >= t->nb_dims)
+         .           	{
+         .           		//printf("point mem offset = %d\n", *offset);
+ 7,200,000 ( 0.18%)  		*addr += *offset;
+         .           		//printf("point mem addr = %p\n", *addr);
+   800,000 ( 0.02%)  		return;
+         .           	}
+         .           	else
+         .           	{	
+         .           		int i, temp;
+16,800,000 ( 0.41%)  		temp = coords[idx];
+         .           		//printf("temp = %d\n", temp);
+         .           
+40,800,000 ( 1.00%)  		for (i = (idx+1) ; i < t->nb_dims ; ++i)
+         .           		{
+24,000,000 ( 0.59%)  			temp *= t->dims[i].length;
+         .           			//printf("ite %d temp = %d\n", i, temp);
+         .           		}
+14,400,000 ( 0.35%)  		(*offset) += temp;
+21,600,000 ( 0.53%)  		get_point_addr_recurs(t, (idx+1), coords, offset, addr);
+113,600,000 ( 2.79%)  => src/tensor_ops.c:get_point_addr_recurs'2 (800,000x)
+         .           	}
+ 6,400,000 ( 0.16%)  }
+         .           
+         .           void
+         .           tensor_run_recurs_row_first(struct tensor * t, int idx, int * dim_size, int * coords)
+ 4,622,222 ( 0.11%)  {
+         .           	int i;
+         .           	
+ 2,521,212 ( 0.06%)  	if (idx >= t->nb_dims)
+         .           	{
+         .           		int * pt_addr; 
+         .           		int offset;
+ 1,200,000 ( 0.03%)  		pt_addr = t->base_addr;
+         .           
+         .           		//printf("t->nb_dims = %ld\n", t->nb_dims);
+ 1,600,000 ( 0.04%)  		printf("point ( ");
+119,200,000 ( 2.93%)  => ???:0x00000000001090d0 (400,000x)
+11,600,000 ( 0.29%)  		for (i = 0 ; i < t->nb_dims ; ++i) 
+         .           		{
+13,200,000 ( 0.32%)  			printf("%d ", coords[i]);
+763,124,000 (18.76%)  => ???:0x00000000001090d0 (1,200,000x)
+         .           		}
+         .           			
+   400,000 ( 0.01%)  		offset = 0;
+ 3,200,000 ( 0.08%)  		get_point_addr_recurs(t, 0, coords, &offset, &pt_addr);
+90,000,000 ( 2.21%)  => src/tensor_ops.c:get_point_addr_recurs (400,000x)
+ 2,800,000 ( 0.07%)  		printf(") mem offset = %d\taddr = %p ", offset, pt_addr);	
+582,583,766 (14.32%)  => ???:0x00000000001090d0 (400,000x)
+         .           		
+         .           		//init w/ val
+ 1,200,000 ( 0.03%)  		*pt_addr = offset;
+         .           
+ 3,200,000 ( 0.08%)  		printf("value = %d\n", *pt_addr);
+379,383,766 ( 9.33%)  => ???:0x00000000001090d0 (400,000x)
+         .           
+         .           		return;
+         .           	}
+         .           	else
+         .           	{	
+ 3,983,820 ( 0.10%)  		for (i = 0 ; i < dim_size[idx] ; ++i)
+         .           		{
+ 2,941,400 ( 0.07%)  			coords[idx] = i;
+ 2,941,400 ( 0.07%)  			tensor_run_recurs_row_first(t, (idx+1), dim_size, coords);
+1,991,797,932 (48.97%)  => src/tensor_ops.c:tensor_run_recurs_row_first'2 (200x)
+         .           		}
+         .           	}
+ 2,101,010 ( 0.05%)  }
+         .           
+         .           int 
+         .           tensor_init(struct tensor * t, int * dimensions)
+        32 ( 0.00%)  {
+         6 ( 0.00%)  	printf("Starting initialization\n");
+       876 ( 0.00%)  => ???:0x00000000001090b0 (2x)
+         .           
+        78 ( 0.00%)  	int coords[t->nb_dims];
+         .           	
+         6 ( 0.00%)  	printf("Starting recursivity\n");
+       846 ( 0.00%)  => ???:0x00000000001090b0 (2x)
+        12 ( 0.00%)  	tensor_run_recurs_row_first(t, 0, dimensions, coords);
+1,991,802,596 (48.97%)  => src/tensor_ops.c:tensor_run_recurs_row_first (2x)
+         6 ( 0.00%)  	printf("Recursivity over\n");
+       806 ( 0.00%)  => ???:0x00000000001090b0 (2x)
+         .           
+         4 ( 0.00%)  	return 0;
+        22 ( 0.00%)  }
+         .           
+         .           void
+         .           tensor_add_recurs_row_first(int idx, struct tensor * A, int * dim_A, struct tensor * B, int * coords)
+ 2,521,212 ( 0.06%)  {
+         .           	int i;
+         .           	
+ 1,260,606 ( 0.03%)  	if (idx >= A->nb_dims)
+         .           	{
+         .           		int * pA_addr; 
+         .           		int * pB_addr; 
+   600,000 ( 0.01%)  		pA_addr = A->base_addr;
+   600,000 ( 0.01%)  		pB_addr = B->base_addr;
+         .           		int offset;
+         .           
+   800,000 ( 0.02%)  		printf("point ( ");
+59,600,000 ( 1.47%)  => ???:0x00000000001090d0 (200,000x)
+ 5,800,000 ( 0.14%)  		for (i = 0 ; i < A->nb_dims ; ++i) 
+         .           		{
+ 6,600,000 ( 0.16%)  			printf("%d ", coords[i]);
+381,562,000 ( 9.38%)  => ???:0x00000000001090d0 (600,000x)
+         .           		}
+         .           			
+   200,000 ( 0.00%)  		offset = 0;
+ 1,600,000 ( 0.04%)  		get_point_addr_recurs(B, 0, coords, &offset, &pB_addr);
+45,000,000 ( 1.11%)  => src/tensor_ops.c:get_point_addr_recurs (200,000x)
+   200,000 ( 0.00%)  		offset = 0;
+ 1,600,000 ( 0.04%)  		get_point_addr_recurs(A, 0, coords, &offset, &pA_addr);
+45,000,000 ( 1.11%)  => src/tensor_ops.c:get_point_addr_recurs (200,000x)
+ 1,400,000 ( 0.03%)  		printf(") mem offset = %d\taddr = %p ", offset, pA_addr);	
+291,291,883 ( 7.16%)  => ???:0x00000000001090d0 (200,000x)
+         .           		
+ 1,400,000 ( 0.03%)  		*pA_addr += *pB_addr;
+         .           
+ 1,600,000 ( 0.04%)  		printf("value = %d\n", *pA_addr);
+190,745,938 ( 4.69%)  => ???:0x00000000001090d0 (200,000x)
+         .           
+         .           		return;
+         .           	}
+         .           	else
+         .           	{	
+ 1,991,910 ( 0.05%)  		for (i = 0 ; i < dim_A[idx] ; ++i)
+         .           		{
+ 1,470,700 ( 0.04%)  			coords[idx] = i;
+ 1,890,900 ( 0.05%)  			tensor_add_recurs_row_first((idx+1), A, dim_A, B, coords);
+1,045,783,121 (25.71%)  => src/tensor_ops.c:tensor_add_recurs_row_first'2 (100x)
+         .           		}
+         .           	}
+ 1,050,505 ( 0.03%)  }
+         .           
+         .           int 
+         .           tensor_add(struct tensor * A, int * dim_A, struct tensor * B)
+        17 ( 0.00%)  {
+         3 ( 0.00%)  	printf("Starting initialization\n");
+       438 ( 0.00%)  => ???:0x00000000001090b0 (1x)
+         .           
+        39 ( 0.00%)  	int coords[A->nb_dims];
+         .           	
+         3 ( 0.00%)  	printf("Starting addition\n");
+       408 ( 0.00%)  => ???:0x00000000001090b0 (1x)
+         8 ( 0.00%)  	tensor_add_recurs_row_first(0, A, dim_A, B, coords);
+1,045,785,654 (25.71%)  => src/tensor_ops.c:tensor_add_recurs_row_first (1x)
+         3 ( 0.00%)  	printf("Addition over\n");
+       390 ( 0.00%)  => ???:0x00000000001090b0 (1x)
+         .           
+         2 ( 0.00%)  	return 0;
+        11 ( 0.00%)  }
+
+--------------------------------------------------------------------------------
+-- Auto-annotated source: src/main.c
+--------------------------------------------------------------------------------
+Ir                 
+
+        .           #include "tensor_ops.h"
+        .           
+        .           int main (int argc, char ** argv)
+        9 ( 0.00%)  {
+        3 ( 0.00%)      int dimensions[3] = { 100, 100 , 20 };
+        .           	
+        .           	struct mem_abs * ma0;
+        .           	struct tensor * t0;
+        .           	// 22001
+        .           		
+        3 ( 0.00%)  	printf("Creationg memory abstraction\n");
+    3,845 ( 0.00%)  => ???:0x00000000001090b0 (1x)
+        3 ( 0.00%)  	mem_abs_create(&ma0);
+    1,557 ( 0.00%)  => /home/nadir/S2_CHPS/Debogage/PROJET/tensor_add/src/tensor_ops.c:mem_abs_create (1x)
+        3 ( 0.00%)  	printf("Memory abstraction created\n");
+      453 ( 0.00%)  => ???:0x00000000001090b0 (1x)
+        .           	
+        3 ( 0.00%)  	printf("Checking initialized memory abstraction\n");
+      527 ( 0.00%)  => ???:0x00000000001090b0 (1x)
+        9 ( 0.00%)  	printf("length = %ld base = %p\n", ma0->mem_length, ma0->mem); 
+    1,517 ( 0.00%)  => ???:0x00000000001090d0 (1x)
+        .           
+        3 ( 0.00%)  	printf("Creating tensor\n");
+      400 ( 0.00%)  => ???:0x00000000001090b0 (1x)
+        6 ( 0.00%)  	tensor_create(&t0, 3, dimensions, ma0);
+   44,696 ( 0.00%)  => /home/nadir/S2_CHPS/Debogage/PROJET/tensor_add/src/tensor_ops.c:tensor_create (1x)
+        3 ( 0.00%)  	printf("Tensor created\n");
+      395 ( 0.00%)  => ???:0x00000000001090b0 (1x)
+        .           
+        3 ( 0.00%)  	printf("Checking extended memory abstraction\n");
+      512 ( 0.00%)  => ???:0x00000000001090b0 (1x)
+        9 ( 0.00%)  	printf("length = %ld base = %p\n", ma0->mem_length, ma0->mem); 
+    1,611 ( 0.00%)  => ???:0x00000000001090d0 (1x)
+        .           
+        3 ( 0.00%)  	printf("Testing mem...\n");
+      395 ( 0.00%)  => ???:0x00000000001090b0 (1x)
+1,400,008 ( 0.03%)  	for (int i = 0 ; i < ma0->mem_length ; ++i)
+        .           	{
+2,400,000 ( 0.06%)  		ma0->mem[i] = i * 10;
+4,600,000 ( 0.11%)  		printf("&mem[%d]=%p\tmem[%d] = %d\n", i, ma0->mem+i, i, ma0->mem[i]);
+506,472,948 (12.45%)  => ???:0x00000000001090d0 (200,000x)
+        .           	}
+        .           
+        3 ( 0.00%)  	printf("Populating tensor\n");
+      408 ( 0.00%)  => ???:0x00000000001090b0 (1x)
+        5 ( 0.00%)  	tensor_init(t0, dimensions);
+995,902,645 (24.48%)  => /home/nadir/S2_CHPS/Debogage/PROJET/tensor_add/src/tensor_ops.c:tensor_init (1x)
+        3 ( 0.00%)  	printf("Tensor populated\n");
+      403 ( 0.00%)  => ???:0x00000000001090b0 (1x)
+        .           
+        .           	struct mem_abs * ma1;
+        .           	struct tensor * t1;
+        .           		
+        3 ( 0.00%)  	printf("Creationg memory abstraction\n");
+      463 ( 0.00%)  => ???:0x00000000001090b0 (1x)
+        3 ( 0.00%)  	mem_abs_create(&ma1);
+    1,413 ( 0.00%)  => /home/nadir/S2_CHPS/Debogage/PROJET/tensor_add/src/tensor_ops.c:mem_abs_create (1x)
+        3 ( 0.00%)  	printf("Memory abstraction created\n");
+      453 ( 0.00%)  => ???:0x00000000001090b0 (1x)
+        .           	
+        3 ( 0.00%)  	printf("Checking initialized memory abstraction\n");
+      527 ( 0.00%)  => ???:0x00000000001090b0 (1x)
+        9 ( 0.00%)  	printf("length = %ld base = %p\n", ma1->mem_length, ma1->mem); 
+    1,517 ( 0.00%)  => ???:0x00000000001090d0 (1x)
+        .           
+        3 ( 0.00%)  	printf("Creating tensor\n");
+      400 ( 0.00%)  => ???:0x00000000001090b0 (1x)
+        6 ( 0.00%)  	tensor_create(&t1, 3, dimensions, ma1);
+   44,696 ( 0.00%)  => /home/nadir/S2_CHPS/Debogage/PROJET/tensor_add/src/tensor_ops.c:tensor_create (1x)
+        3 ( 0.00%)  	printf("Tensor created\n");
+      395 ( 0.00%)  => ???:0x00000000001090b0 (1x)
+        .           
+        3 ( 0.00%)  	printf("Checking extended memory abstraction\n");
+      512 ( 0.00%)  => ???:0x00000000001090b0 (1x)
+        9 ( 0.00%)  	printf("length = %ld base = %p\n", ma1->mem_length, ma1->mem); 
+    1,611 ( 0.00%)  => ???:0x00000000001090d0 (1x)
+        .           
+        3 ( 0.00%)  	printf("Testing mem...\n");
+      395 ( 0.00%)  => ???:0x00000000001090b0 (1x)
+1,400,008 ( 0.03%)  	for (int i = 0 ; i < ma1->mem_length ; ++i)
+        .           	{
+2,400,000 ( 0.06%)  		ma1->mem[i] = i * 10;
+4,600,000 ( 0.11%)  		printf("&mem[%d]=%p\tmem[%d] = %d\n", i, ma1->mem+i, i, ma1->mem[i]);
+506,472,948 (12.45%)  => ???:0x00000000001090d0 (200,000x)
+        .           	}
+        .           
+        3 ( 0.00%)  	printf("Populating tensor\n");
+      408 ( 0.00%)  => ???:0x00000000001090b0 (1x)
+        5 ( 0.00%)  	tensor_init(t1, dimensions);
+995,902,645 (24.48%)  => /home/nadir/S2_CHPS/Debogage/PROJET/tensor_add/src/tensor_ops.c:tensor_init (1x)
+        3 ( 0.00%)  	printf("Tensor populated\n");
+      403 ( 0.00%)  => ???:0x00000000001090b0 (1x)
+        .           
+        3 ( 0.00%)  	printf("Tensor addition\n");
+      400 ( 0.00%)  => ???:0x00000000001090b0 (1x)
+        6 ( 0.00%)  	tensor_add(t1, dimensions, t1);
+1,045,786,976 (25.71%)  => /home/nadir/S2_CHPS/Debogage/PROJET/tensor_add/src/tensor_ops.c:tensor_add (1x)
+        3 ( 0.00%)  	printf("Tensor added\n");
+      385 ( 0.00%)  => ???:0x00000000001090b0 (1x)
+        .           
+        3 ( 0.00%)  	printf("Destroying tensor\n");
+      408 ( 0.00%)  => ???:0x00000000001090b0 (1x)
+        3 ( 0.00%)  	tensor_destroy(t1);
+      197 ( 0.00%)  => /home/nadir/S2_CHPS/Debogage/PROJET/tensor_add/src/tensor_ops.c:tensor_destroy (1x)
+        3 ( 0.00%)  	printf("Tensor destroyed\n");
+      403 ( 0.00%)  => ???:0x00000000001090b0 (1x)
+        .           
+        3 ( 0.00%)  	printf("Destroying memory abstraction\n");
+      468 ( 0.00%)  => ???:0x00000000001090b0 (1x)
+        3 ( 0.00%)  	mem_abs_destroy(ma1);
+      174 ( 0.00%)  => /home/nadir/S2_CHPS/Debogage/PROJET/tensor_add/src/tensor_ops.c:mem_abs_destroy (1x)
+        3 ( 0.00%)  	printf("Memory abstraction destroyed\n");
+      463 ( 0.00%)  => ???:0x00000000001090b0 (1x)
+        .           
+        3 ( 0.00%)  	printf("Destroying tensor\n");
+      408 ( 0.00%)  => ???:0x00000000001090b0 (1x)
+        3 ( 0.00%)  	tensor_destroy(t0);
+      197 ( 0.00%)  => /home/nadir/S2_CHPS/Debogage/PROJET/tensor_add/src/tensor_ops.c:tensor_destroy (1x)
+        3 ( 0.00%)  	printf("Tensor destroyed\n");
+      403 ( 0.00%)  => ???:0x00000000001090b0 (1x)
+        .           
+        3 ( 0.00%)  	printf("Destroying memory abstraction\n");
+      468 ( 0.00%)  => ???:0x00000000001090b0 (1x)
+        3 ( 0.00%)  	mem_abs_destroy(ma0);
+      174 ( 0.00%)  => /home/nadir/S2_CHPS/Debogage/PROJET/tensor_add/src/tensor_ops.c:mem_abs_destroy (1x)
+        3 ( 0.00%)  	printf("Memory abstraction destroyed\n");
+      463 ( 0.00%)  => ???:0x00000000001090b0 (1x)
+        .               /**
+        .                * Ex: How to access a particular point in a tensor
+        .           	 *  printf("Accessing point : ( 3, 2, 1 )\n");
+        .           	 *  int coords[3] = { 3, 2, 1 }; 
+        .           	 *  int * point;
+        .           	 *  int offset;
+        .           	 *  point = t1->base_addr;
+        .           	 *  offset = 0;
+        .           	 *  get_point_addr_recurs(t1, 0, coords, &offset, &point);
+        .           	 *  printf("&point = %p, point = %d\n", point, *point);
+        .                */
+        .           
+        1 ( 0.00%)  	return 0;
+        5 ( 0.00%)  }
+
+--------------------------------------------------------------------------------
+The following files chosen for auto-annotation could not be found:
+--------------------------------------------------------------------------------
+  ./libio/./libio/fileops.c
+  ./libio/./libio/genops.c
+  ./libio/./libio/libioP.h
+  ./nptl/./nptl/libc-cleanup.c
+  ./stdio-common/../libio/libioP.h
+  ./stdio-common/./stdio-common/_itoa.c
+  ./stdio-common/./stdio-common/printf-parse.h
+  ./stdio-common/./stdio-common/printf.c
+  ./stdio-common/./stdio-common/vfprintf-internal.c
+  ./string/../sysdeps/x86_64/multiarch/memmove-vec-unaligned-erms.S
+  ./string/../sysdeps/x86_64/multiarch/strchr-avx2.S
+
+--------------------------------------------------------------------------------
+Ir                   
+--------------------------------------------------------------------------------
+286,898,003 ( 7.05%)  events annotated
+
